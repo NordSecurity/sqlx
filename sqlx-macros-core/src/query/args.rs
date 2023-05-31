@@ -117,24 +117,26 @@ pub fn quote_args<DB: DatabaseExt>(
 }
 
 fn create_warning(name: Ident, ty: &Type, expr: &Expr) -> TokenStream {
-    let Expr::Type(ExprType { expr: stripped, .. }) = expr else {
-        return quote!();
-    };
-    let current = quote!(#stripped: #ty).to_string();
-    let fix = quote!(#stripped as #ty).to_string();
+    // if let Expr::Type(ExprType { expr: stripped, .. }) = expr {
+    //     return quote!();
+    // };
+
+    // let current = quote!(#stripped: #ty).to_string();
+    // let fix = quote!(#stripped as #ty).to_string();
     let name = Ident::new(&format!("warning_{name}"), expr.span());
 
-    let message = format!(
-        "
-\t\tType ascription pattern is deprecated, prefer casting
-\t\tTry changing from
-\t\t\t`{current}`
-\t\tto
-\t\t\t`{fix}`
+        let message = "TODO";
+//     let message = format!(
+//         "
+// \t\tType ascription pattern is deprecated, prefer casting
+// \t\tTry changing from
+// \t\t\t`{current}`
+// \t\tto
+// \t\t\t`{fix}`
 
-\t\tSee <https://github.com/rust-lang/rfcs/pull/3307> for more information
-"
-    );
+// \t\tSee <https://github.com/rust-lang/rfcs/pull/3307> for more information
+// "
+//     );
 
     quote_spanned!(expr.span() =>
         // this shouldn't actually run
